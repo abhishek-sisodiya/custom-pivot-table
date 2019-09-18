@@ -21,7 +21,7 @@ pre {
   /* when cdkDropListOrientation="horizontal" comment out flex properties below: */
   /* flex-direction: row; */
   padding: .5em 0;
-  width: 70%;
+  width: 10%;
 }
 
 .box-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
@@ -29,7 +29,7 @@ pre {
 }
 
 .drag-box {
-  background-color: yellow;
+  /* background-color: yellow; */
   border: dashed orange 1px;
   cursor: move;
   display: flex;
@@ -38,7 +38,7 @@ pre {
     justify-content: center;
   margin: .25em;
   padding: .25em;
-  width: 90%;
+  /* width: 90%; */
 }
 
 .cdk-drag {
