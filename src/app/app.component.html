@@ -1,0 +1,14 @@
+
+<div 
+  class="box-list"
+  cdkDropList
+  cdkDropListOrientation="vertical"
+  (cdkDropListDropped)="drop($event)"  (dragstart)="showPre=false" >
+  <div  class="drag-box" (cdkDragMoved)="showPre=false" *ngFor="let customer of customers" cdkDrag>
+    {{customer.name}}
+  </div>
+</div>
+
+<button (click)="showPre=true">OK</button>
+
+<div *ngIf="showPre">{{pre}}</div>
