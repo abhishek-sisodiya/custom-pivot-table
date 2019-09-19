@@ -1,3 +1,40 @@
+
+<div class ="wrap">
+ <section class="fleft">
+      
+<ng-multiselect-dropdown
+name="city"
+[data]="cities"
+[(ngModel)]="selectedItem1"
+[settings]="dropdownSettings1"
+(onSelect)="onItemSelect1($event)"
+[disabled]="disabled">
+</ng-multiselect-dropdown>
+<br>
+<br>
+<br>
+<br>
+<div>
+  <form [formGroup]="formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+     <input type="text" class="fortextbox" name="from" placeholder="From Date" 
+        formControlName="from">
+     <br/>
+     
+     <input type="text" class="fortextbox" name="to" 
+        placeholder="To Date" formControlName="to">
+     <br/>
+     
+     <input type="submit" class="forsubmit" value="Log In">
+  </form>
+</div>
+<p>
+  Email entered is : {{from}}
+</p>
+<br>
+<br>
+<br>
+
+
 <div #activeList="cdkDropList" class="box-list" cdkDropList cdkDropListOrientation="vertical"
   [cdkDropListData]="activeCustomers" [cdkDropListConnectedTo]="[inactiveList]" (cdkDropListDropped)="drop($event)"
   (dragstart)="showPre=false">
@@ -14,6 +51,10 @@
   </div>
 </div>
 
+<br>
+<br>
+<br>
+
 <ng-multiselect-dropdown
   [placeholder]="'Select Year(s)'"
   [data]="dropdownList"
@@ -25,8 +66,14 @@
 >
 </ng-multiselect-dropdown>
 
-
+<br>
+<br>
+<br>
 <button (click)="showPre=true">OK</button>
 <div *ngIf="showPre">{{pre}}</div>
 
 <div *ngIf="showPre">{{selectedItems | json}}</div>
+</section>
+<section class="fright"></section>
+
+</div>

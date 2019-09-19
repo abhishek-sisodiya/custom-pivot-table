@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'my-app',
@@ -12,6 +13,13 @@ export class AppComponent implements OnInit {
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
+  from : string;
+  to : string;
+  cities= [];
+  selectedItem1 = [];
+  dropdownSettings1 = {};
+  closeDropdownSelection=false;
+  disabled=false;
 
   activeCustomers = [
     'Store',
@@ -20,6 +28,7 @@ export class AppComponent implements OnInit {
   ];
 
   inactiveCustomers = [];
+  formdata: any;
 
 
   ngOnInit() {
@@ -43,8 +52,28 @@ export class AppComponent implements OnInit {
       itemsShowLimit: 3,
       allowSearchFilter: true
     };
-  }
 
+    this.cities = ['Year', 'Month', 'Quater', 'Week'];
+    this.selectedItem1 = [];
+    this.dropdownSettings1 = {
+        singleSelection: true,
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        allowSearchFilter: true,
+        closeDropDownOnSelection: this.closeDropdownSelection
+    };
+    this.formdata = new FormGroup({
+      from: new FormControl(""),
+      to: new FormControl("")
+   });
+  }
+  onItemSelect1(item: any) {
+    console.log('onItemSelect', item);
+}
+toggleCloseDropdownSelection() {
+  this.closeDropdownSelection = !this.closeDropdownSelection;
+  this.dropdownSettings1 = Object.assign({}, this.dropdownSettings1,{closeDropDownOnSelection: this.closeDropdownSelection});
+}
   onItemSelect() {
     console.log(this.selectedItems);
   }
