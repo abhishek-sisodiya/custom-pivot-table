@@ -37,11 +37,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.dropdownList = [
-      { item_id: 1, item_text: '2015' },
-      { item_id: 2, item_text: '2016' },
-      { item_id: 3, item_text: '2017' },
-      { item_id: 4, item_text: '2018' },
-      { item_id: 5, item_text: '2019' }
+      { item_id: 1, item_text: 'Sale price' },
+      { item_id: 2, item_text: 'Qty' },
+      { item_id: 3, item_text: 'Avg price' },
     ];
     this.selectedItems = [
       // { item_id: 3, item_text: 'Pune' },

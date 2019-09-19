@@ -21,7 +21,7 @@ pre {
   /* when cdkDropListOrientation="horizontal" comment out flex properties below: */
   /* flex-direction: row; */
   padding: .5em 0;
-  width: 10%;
+  width: 50%;
 }
 
 .box-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
