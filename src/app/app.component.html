@@ -74,6 +74,186 @@ name="city"
 
 <div *ngIf="showPre">{{selectedItems | json}}</div>
 </section>
-<section class="fright"></section>
+
+<section class="fright">
+
+
+    <table>
+        <tbody>
+      
+          <tr>
+            <ng-container *ngFor='let x of data.dimensions; index as i'>
+              <td>
+                <h4>{{x}}</h4>
+              </td>
+            </ng-container>
+      
+            <!-- <td>
+                <h2>Category</h2>
+              </td> -->
+            <td colspan="2">
+              <h2>JAN</h2>
+            </td>
+            <td colspan="2">
+              <h2>FEB</h2>
+            </td>
+            <td colspan="2">
+              <h2>JAN</h2>
+            </td>
+            <td colspan="2">
+              <h2>JAN</h2>
+            </td>
+            <td colspan="2">
+              <h2>JAN</h2>
+            </td>
+            <td colspan="2">
+              <h2>JAN</h2>
+            </td>
+            <td colspan="2">
+              <h2>JAN</h2>
+            </td>
+            <td colspan="2">
+              <h2>JAN</h2>
+            </td>
+            <td colspan="2">
+              <h2>JAN</h2>
+            </td>
+            <td colspan="2">
+              <h2>JAN</h2>
+            </td>
+            <td colspan="2">
+              <h2>JAN</h2>
+            </td>
+            <td colspan="2">
+              <h2>JAN</h2>
+            </td>
+          </tr>
+      
+          <tr>
+            <td>
+      
+            </td>
+            <td>
+      
+            </td>
+            <ng-container *ngFor='let x of [1,1,1,1,1,1,1,1,1,1,1,1]; index as i'>
+              <td>
+                <h5>QTY</h5>
+              </td>
+              <td>
+                <h5>PRICE</h5>
+              </td>
+            </ng-container>
+          </tr>
+      
+          <tr *ngFor='let x of data.result; index as i'>
+            <td>
+              {{x["DimStore[StoreName]"]}}
+            </td>
+            <td>
+              {{x["DimCategory[CategoryName]"]}}
+            </td>
+      
+            <!--       
+            <ng-container *ngFor='let y of x["[SumOfSoldQty]"]; index as i'>
+                <td>
+                  {{y | json}}
+                </td>
+              </ng-container>
+              <ng-container *ngFor='let y of x["[SumOfExtSoldPrice]"]; index as i'>
+                <td>
+                  {{y | json}}
+                </td>
+              </ng-container> -->
+      
+            <ng-container *ngFor='let y of [1,1,1,1]; index as i'>
+              <td>
+                1243
+              </td>
+              <td>
+                526
+              </td>
+              <td>
+                456
+              </td>
+              <td>
+                2
+              </td>
+              <td>
+                598
+              </td>
+              <td>
+                265
+              </td>
+            </ng-container>
+          </tr>
+      
+          <!-- 
+          <tr *ngFor='let x of [1,2,3]; index as i'>
+            <td>
+              Store-B
+            </td>
+            <td>
+              C-{{x}}
+            </td>
+            <td>
+              5142
+            </td>
+            <td>
+              756
+            </td>
+            <td>
+              2546
+            </td>
+            <td>
+              8746
+            </td>
+            <td>
+              15
+            </td>
+            <td>
+              854
+            </td>
+          </tr>
+      
+          <tr *ngFor='let x of [1,2,3]; index as i'>
+            <td>
+              Store-C
+            </td>
+            <td>
+              C-{{x}}
+            </td>
+            <td>
+              234
+            </td>
+            <td>
+              7846
+            </td>
+            <td>
+              743
+            </td>
+            <td>
+              23
+            </td>
+            <td>
+              8365
+            </td>
+            <td>
+              92
+            </td>
+          </tr> -->
+      
+      
+          <!-- <td>
+               {{s | json}}
+             </td> -->
+          <!-- <span *ngFor='let it of s.wheels; index as i' [attr.data-index]="i"> -->
+          <!-- <td>{{s.wheels[i]}}</td> -->
+          <!-- <td>{{s.types[i]}}</td> -->
+          <!-- </span> -->
+        </tbody>
+      </table>
+  
+</section>
 
 </div>
