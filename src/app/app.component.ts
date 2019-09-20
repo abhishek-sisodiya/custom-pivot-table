@@ -16,7 +16,9 @@ export class AppComponent implements OnInit {
   showPre = false;
   dropdownList = [];
   selectedItems = [];
+  selectedItemsForDimensions = [];
   dropdownSettings = {};
+  dropdownSettingss = {};
   from: string;
   to: string;
   cities = [];
@@ -25,27 +27,36 @@ export class AppComponent implements OnInit {
   closeDropdownSelection = false;
   disabled = false;
   data;
+  objectKeys = Object.keys;
+
   activeCustomers = [
-    'Store',
-    'Category',
-    'Region'
+    'DimCategory[CategoryName]', 'DimDept[DeptCode]'
   ];
   namedMonths = ["February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January"];
   inactiveCustomers = [];
-  formdata: any;
+  formdata: FormGroup;
 
 
   ngOnInit() {
     this.dropdownList = [
-      { item_id: 1, item_text: 'Sale price' },
-      { item_id: 2, item_text: 'Qty' },
-      { item_id: 3, item_text: 'Avg price' },
+      '[SumOfSoldQty]',
+      '[SumOfExtendedCost]',
+      // { item_id: 3, item_text: 'Avg price' },
     ];
     this.selectedItems = [
       // { item_id: 3, item_text: 'Pune' },
       // { item_id: 4, item_text: 'Navsari' }
     ];
     this.dropdownSettings = {
+      singleSelection: true,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+    this.dropdownSettingss = {
       singleSelection: false,
       idField: 'item_id',
       textField: 'item_text',
@@ -55,7 +66,7 @@ export class AppComponent implements OnInit {
       allowSearchFilter: true
     };
 
-    this.cities = ['Year', 'Month', 'Quater', 'Week'];
+    this.cities = ['Year', 'Month', 'Quarter', 'Week'];
     this.selectedItem1 = [];
     this.dropdownSettings1 = {
       singleSelection: true,
@@ -69,15 +80,6 @@ export class AppComponent implements OnInit {
       to: new FormControl("")
     });
 
-
-    this.getJSON().subscribe(data => {
-      console.log(data);
-      this.data = data;
-      console.log(this.namedMonths);
-      let arr = [];
-
-      this.monthsBetween(this.data.from_date, this.data.to_date, function (month) { arr.push(this.namedMonths[month]); });
-    });
 
   }
   onItemSelect1(item: any) {
@@ -123,14 +125,14 @@ export class AppComponent implements OnInit {
 
 
   public getJSON(): Observable<any> {
-    return this.http.get("./assets/data.json");
+    return this.http.get('http://odaapi.rw.diasparkonline.com/byinterval?from_date=' + this.formdata.value.from + '&to_date=' + this.formdata.value.to + '&interval=DimDate[' + this.selectedItem1 + ']&dimensions=' + this.selectedItemsForDimensions.toString() + '&measures=' + this.selectedItems.toString());
+    // return this.http.get('./assets/data.json');
   }
 
   getData() {
     this.getJSON().subscribe(data => {
       console.log(data);
-      data = data.dimensions;
-      console.log(data.dimensions);
+      data = data;
     });
   }
 
@@ -187,6 +189,17 @@ export class AppComponent implements OnInit {
     }
     //return month counter as result
     return months;
+  }
+
+
+  ok() {
+    this.showPre = true;
+    this.getJSON().subscribe(data => {
+      console.log(data);
+      this.data = data;
+      // let arr = [];
+      // this.monthsBetween(this.data.from_date, this.data.to_date, function (month) { arr.push(this.namedMonths[month]); });
+    });
   }
 
 }

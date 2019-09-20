@@ -24,8 +24,11 @@
     <br>
 
     Select Dimensions
-
-    <div #activeList="cdkDropList" class="box-list" cdkDropList cdkDropListOrientation="vertical"
+    <ng-multiselect-dropdown [placeholder]="'Dimensions(s)'" [data]="activeCustomers"
+      [(ngModel)]="selectedItemsForDimensions" [settings]="dropdownSettingss" (onDeSelect)="onItemDeSelect($event)"
+      (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+    </ng-multiselect-dropdown>
+    <!-- <div #activeList="cdkDropList" class="box-list" cdkDropList cdkDropListOrientation="vertical"
       [cdkDropListData]="activeCustomers" [cdkDropListConnectedTo]="[inactiveList]" (cdkDropListDropped)="drop($event)"
       (dragstart)="showPre=false">
       <div class="drag-box" *ngFor="let customer of activeCustomers" (cdkDragMoved)="showPre=false" cdkDrag>
@@ -39,7 +42,7 @@
       <div class="drag-box" *ngFor="let customer of inactiveCustomers" (cdkDragMoved)="showPre=false" cdkDrag>
         {{customer}}
       </div>
-    </div>
+    </div> -->
 
     <br>
     <br>
@@ -53,7 +56,7 @@
     <br>
     <br>
     <br>
-    <button (click)="showPre=true">OK</button>
+    <button (click)="ok()">OK</button>
     <div *ngIf="showPre">{{pre}}</div>
 
     <div *ngIf="showPre">{{selectedItems | json}}</div>
@@ -62,7 +65,7 @@
   <section class="fright">
 
 
-    <table>
+    <table *ngIf="data">
       <tbody>
 
         <tr>
@@ -75,40 +78,40 @@
           <!-- <td>
                 <h2>Category</h2>
               </td> -->
-          <td colspan="2">
+          <td>
             <h2>JAN</h2>
           </td>
-          <td colspan="2">
+          <td>
             <h2>FEB</h2>
           </td>
-          <td colspan="2">
+          <td>
             <h2>JAN</h2>
           </td>
-          <td colspan="2">
+          <td>
             <h2>JAN</h2>
           </td>
-          <td colspan="2">
+          <td>
             <h2>JAN</h2>
           </td>
-          <td colspan="2">
+          <td>
             <h2>JAN</h2>
           </td>
-          <td colspan="2">
+          <td>
             <h2>JAN</h2>
           </td>
-          <td colspan="2">
+          <td>
             <h2>JAN</h2>
           </td>
-          <td colspan="2">
+          <td>
             <h2>JAN</h2>
           </td>
-          <td colspan="2">
+          <td>
             <h2>JAN</h2>
           </td>
-          <td colspan="2">
+          <td>
             <h2>JAN</h2>
           </td>
-          <td colspan="2">
+          <td>
             <h2>JAN</h2>
           </td>
         </tr>
@@ -124,9 +127,9 @@
             <td>
               <h5>QTY</h5>
             </td>
-            <td>
+            <!-- <td>
               <h5>PRICE</h5>
-            </td>
+            </td> -->
           </ng-container>
         </tr>
 
@@ -138,19 +141,18 @@
             {{x["DimCategory[CategoryName]"]}}
           </td>
 
-          <!--       
-            <ng-container *ngFor='let y of x["[SumOfSoldQty]"]; index as i'>
-                <td>
-                  {{y | json}}
-                </td>
-              </ng-container>
-              <ng-container *ngFor='let y of x["[SumOfExtSoldPrice]"]; index as i'>
-                <td>
-                  {{y | json}}
-                </td>
-              </ng-container> -->
+          <ng-container *ngFor='let key of objectKeys(x["[SumOfSoldQty]"]) ; index as i'>
+            <td>
+              {{x["[SumOfSoldQty]"][key]}}
+            </td>
+          </ng-container>
+          <!-- <ng-container *ngFor='let key of objectKeys(x["[SumOfExtSoldPrice]"]) ; index as i'>
+            <td>
+              {{x["[SumOfExtSoldPrice]"][key]}}
+            </td>
+          </ng-container> -->
 
-          <ng-container *ngFor='let y of [1,1,1,1]; index as i'>
+          <!-- <ng-container *ngFor='let y of [1,1,1,1]; index as i'>
             <td>
               1243
             </td>
@@ -170,9 +172,9 @@
               265
             </td>
           </ng-container>
-        </tr>
+        </tr> -->
 
-        <!-- 
+          <!-- 
           <tr *ngFor='let x of [1,2,3]; index as i'>
             <td>
               Store-B
@@ -228,13 +230,13 @@
           </tr> -->
 
 
-        <!-- <td>
+          <!-- <td>
                {{s | json}}
              </td> -->
-        <!-- <span *ngFor='let it of s.wheels; index as i' [attr.data-index]="i"> -->
-        <!-- <td>{{s.wheels[i]}}</td> -->
-        <!-- <td>{{s.types[i]}}</td> -->
-        <!-- </span> -->
+          <!-- <span *ngFor='let it of s.wheels; index as i' [attr.data-index]="i"> -->
+          <!-- <td>{{s.wheels[i]}}</td> -->
+          <!-- <td>{{s.types[i]}}</td> -->
+          <!-- </span> -->
       </tbody>
     </table>
 
