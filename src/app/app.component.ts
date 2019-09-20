@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
   disabled = false;
   data;
   objectKeys = Object.keys;
+  colsToShow = [];
 
   activeCustomers = [
     'DimCategory[CategoryName]', 'DimDept[DeptCode]'
@@ -76,8 +77,8 @@ export class AppComponent implements OnInit {
       closeDropDownOnSelection: this.closeDropdownSelection
     };
     this.formdata = new FormGroup({
-      from: new FormControl(""),
-      to: new FormControl("")
+      from: new FormControl("2017-01-01"),
+      to: new FormControl("2019-12-31")
     });
 
 
@@ -193,7 +194,6 @@ export class AppComponent implements OnInit {
 
 
   ok() {
-    this.showPre = true;
     this.getJSON().subscribe(data => {
       console.log(data);
       this.data = data;
