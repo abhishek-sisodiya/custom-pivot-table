@@ -81,7 +81,7 @@
           </ng-container>
 
         </tr>
-
+<!-- 
         <tr>
           <td>
 
@@ -94,24 +94,20 @@
               <h5>{{x}}</h5>
             </td>
           </ng-container>
-        </tr>
+        </tr> -->
 
         <tr *ngFor='let x of data.result'>
 
           <ng-container *ngFor='let y of data.dimensions'>
-            <!-- <ng-container *ngFor='let key of objectKeys(x[y])'> -->
-              <td>
-                {{x[y]}}
-              </td>
-            <!-- </ng-container> -->
+            <td>
+              {{x[y]}}
+            </td>
           </ng-container>
 
-          <ng-container *ngIf='x[data.measures[0]]'>
-            <ng-container *ngFor='let key of objectKeys(x[data.measures[0]])'>
-              <td>
-                {{x[data.measures[0]][key]}}
-              </td>
-            </ng-container>
+          <ng-container *ngFor='let key of objectKeys(x[data.measures[0]])'>
+            <td>
+              {{x[data.measures[0]][key]}}
+            </td>
           </ng-container>
         </tr>
 
