@@ -68,13 +68,13 @@
     <table *ngIf="data">
       <tbody>
         <tr>
-          <ng-container *ngFor='let x of data.dimensions; index as i'>
+          <ng-container *ngFor='let x of data.dimensions'>
             <td>
               <h4>{{x}}</h4>
             </td>
           </ng-container>
 
-          <ng-container *ngFor='let key of objectKeys(data.result[0][data.measures[0]]); index as i'>
+          <ng-container *ngFor='let key of objectKeys(data.result[0][data.measures[0]])'>
             <td>
               {{key}}
             </td>
@@ -89,30 +89,31 @@
           <td>
 
           </td>
-          <ng-container *ngFor='let x of data.measures; index as i'>
+          <ng-container *ngFor='let x of data.measures'>
             <td>
               <h5>{{x}}</h5>
             </td>
           </ng-container>
         </tr>
 
-        <tr *ngFor='let x of data.result; index as i'>
+        <tr *ngFor='let x of data.result'>
 
-            <!-- <ng-container *ngFor='let key of objectKeys(data.result[0][data.measures[0]]); index as i'> -->
-          <td>
-            {{x["DimDept[DeptCode]"]}}
-          </td>
-          <td>
-            {{x["DimCategory[CategoryName]"]}}
-          </td>
+          <ng-container *ngFor='let y of data.dimensions'>
+            <!-- <ng-container *ngFor='let key of objectKeys(x[y])'> -->
+              <td>
+                {{x[y]}}
+              </td>
+            <!-- </ng-container> -->
+          </ng-container>
 
           <ng-container *ngIf='x[data.measures[0]]'>
-            <ng-container *ngFor='let key of objectKeys(x[data.measures[0]]) ; index as i'>
+            <ng-container *ngFor='let key of objectKeys(x[data.measures[0]])'>
               <td>
                 {{x[data.measures[0]][key]}}
               </td>
             </ng-container>
           </ng-container>
+        </tr>
 
       </tbody>
     </table>
