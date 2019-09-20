@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
   colsToShow = [];
 
   activeCustomers = [
-    'DimCategory[CategoryName]', 'DimDept[DeptCode]'
+    'DimCategory[CategoryName]', 'DimDept[DeptCode]', "DimStore[StoreName]", "DimCustomer[CustName]"
   ];
   namedMonths = ["February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January"];
   inactiveCustomers = [];
@@ -42,6 +42,7 @@ export class AppComponent implements OnInit {
     this.dropdownList = [
       '[SumOfSoldQty]',
       '[SumOfExtendedCost]',
+      "[SumOfExtSoldPrice]"
       // { item_id: 3, item_text: 'Avg price' },
     ];
     this.selectedItems = [

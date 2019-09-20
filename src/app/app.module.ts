@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
 
 import { MarkdownModule } from 'ngx-markdown';
 
@@ -19,7 +19,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     DragDropModule,
     MarkdownModule.forRoot()
   ],
-  declarations: [ AppComponent ],
-  bootstrap:    [ AppComponent ]
+  declarations: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
