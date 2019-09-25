@@ -12,7 +12,12 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   constructor(private http: HttpClient) { }
-
+  x; y; n; q; op = []; res;
+  showBar = false;
+  color = 'primary';
+  mode = 'indeterminate';
+  value = 50;
+  bufferValue = 75;
   showPre = false;
   dropdownList = [];
   selectedItems = [];
@@ -30,9 +35,25 @@ export class AppComponent implements OnInit {
   objectKeys = Object.keys;
   colsToShow = [];
 
-  activeCustomers = [
-    'DimCategory[CategoryName]', 'DimDept[DeptCode]', "DimStore[StoreName]", "DimCustomer[CustName]"
-  ];
+  activeCustomers =
+    [
+      {
+        "text": "Store",
+        "val": "DimStore[StoreName]"
+      },
+      {
+        "text": "Category",
+        "val": "DimCategory[CategoryName]"
+      },
+      {
+        "text": "Department",
+        "val": "DimDept[DeptCode]"
+      },
+      {
+        "text": "Customer",
+        "val": "DimCustomer[CustName]"
+      }
+    ];
   namedMonths = ["February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January"];
   inactiveCustomers = [];
   formdata: FormGroup;
@@ -40,10 +61,18 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.dropdownList = [
-      '[SumOfSoldQty]',
-      '[SumOfExtendedCost]',
-      "[SumOfExtSoldPrice]"
-      // { item_id: 3, item_text: 'Avg price' },
+      {
+        "text": "Sold Qty",
+        "val": "[SumOfSoldQty]"
+      },
+      {
+        "text": "Ext Sold Price",
+        "val": "[SumOfExtSoldPrice]"
+      },
+      {
+        "text": "Ext Cost",
+        "val": "[SumOfExtendedCost]"
+      }
     ];
     this.selectedItems = [
       // { item_id: 3, item_text: 'Pune' },
@@ -51,8 +80,8 @@ export class AppComponent implements OnInit {
     ];
     this.dropdownSettings = {
       singleSelection: true,
-      idField: 'item_id',
-      textField: 'item_text',
+      idField: 'val',
+      textField: 'text',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 3,
@@ -60,8 +89,8 @@ export class AppComponent implements OnInit {
     };
     this.dropdownSettingss = {
       singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
+      idField: 'val',
+      textField: 'text',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 3,
@@ -85,20 +114,16 @@ export class AppComponent implements OnInit {
 
   }
   onItemSelect1(item: any) {
-    console.log('onItemSelect', item);
   }
   toggleCloseDropdownSelection() {
     this.closeDropdownSelection = !this.closeDropdownSelection;
     this.dropdownSettings1 = Object.assign({}, this.dropdownSettings1, { closeDropDownOnSelection: this.closeDropdownSelection });
   }
   onItemSelect() {
-    console.log(this.selectedItems);
   }
   onSelectAll(items: any) {
-    console.log(items);
   }
   onItemDeSelect() {
-    console.log(this.selectedItems);
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -127,13 +152,17 @@ export class AppComponent implements OnInit {
 
 
   public getJSON(): Observable<any> {
-    return this.http.get('http://odaapi.rw.diasparkonline.com/byinterval?from_date=' + this.formdata.value.from + '&to_date=' + this.formdata.value.to + '&interval=DimDate[' + this.selectedItem1 + ']&dimensions=' + this.selectedItemsForDimensions.toString() + '&measures=' + this.selectedItems.toString());
+    if (this.selectedItemsForDimensions[0].val) {
+      this.selectedItemsForDimensions.forEach((x, i) => {
+        this.selectedItemsForDimensions[i] = x.val;
+      });
+    }
+    return this.http.get('http://odaapi.rw.diasparkonline.com/byinterval?from_date=' + this.formdata.value.from + '&to_date=' + this.formdata.value.to + '&interval=DimDate[' + this.selectedItem1 + ']&dimensions=' + this.selectedItemsForDimensions.toString() + '&measures=' + this.selectedItems[0].val);
     // return this.http.get('./assets/data.json');
   }
 
   getData() {
     this.getJSON().subscribe(data => {
-      console.log(data);
       data = data;
     });
   }
@@ -195,12 +224,52 @@ export class AppComponent implements OnInit {
 
 
   ok() {
+    this.showBar = !this.showBar;
     this.getJSON().subscribe(data => {
-      console.log(data);
+      this.showBar = !this.showBar;
       this.data = data;
+      // this.data.dimensions.sort(function (a, b) {
+      //   if (a < b) { return -1; }
+      //   if (a > b) { return 1; }
+      //   return 0;
+      // })
+      // this.data.available_dimensions.sort(function (a, b) {
+      //   if (a.val < b.val) { return -1; }
+      //   if (a.val > b.val) { return 1; }
+      //   return 0;
+      // })
+      // // this.data.available_dimensions.sort((n1, n2) => n1 - n2);
+      // // this.data.dimensions.sort((n1, n2) => n1 - n2);
+      // console.log(this.data);
       // let arr = [];
       // this.monthsBetween(this.data.from_date, this.data.to_date, function (month) { arr.push(this.namedMonths[month]); });
     });
+  }
+
+  find() {
+    const p = [];
+    let count = 0;
+    this.op = [];
+    // while (this.x > 0) {
+    if (this.n % 2 == 0) {
+      this.res = this.n / 2;
+    } else {
+      for (let i = 0; i < this.n; i++) {
+        if (i % 2 == 0) {
+          (this.y == 1) ? p[i] = 2 : p[i] = 1;
+        } else {
+          p[i] = this.y;
+        }
+      }
+      p.forEach(item => {
+        if (this.q == item) {
+          count++;
+        }
+      });
+      this.op.push(p);
+      this.res = count;
+    }
+    // }
   }
 
 }

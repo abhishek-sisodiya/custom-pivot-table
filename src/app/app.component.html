@@ -1,37 +1,37 @@
+<mat-progress-bar *ngIf="showBar" class="progress-bar" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
+</mat-progress-bar>
+
 <div class="wrap">
-  <section class="fleft">
+    <section class="fleft">
 
-    SELECT INTERVAL
-    <ng-multiselect-dropdown name="city" [data]="cities" [(ngModel)]="selectedItem1" [settings]="dropdownSettings1"
-      (onSelect)="onItemSelect1($event)" [disabled]="disabled">
-    </ng-multiselect-dropdown>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div>
-      DATE RANGE
-      <form [formGroup]="formdata" (ngSubmit)="onClickSubmit(formdata.value)">
-        From:
-        <input type="text" class="fortextbox" name="from" placeholder="From Date" formControlName="from">
-        <br />
-        To:
-        <input type="text" class="fortextbox" name="to" placeholder="To Date" formControlName="to">
-        <br />
+        SELECT INTERVAL
+        <ng-multiselect-dropdown name="city" [data]="cities" [(ngModel)]="selectedItem1" [settings]="dropdownSettings1"
+            (onSelect)="onItemSelect1($event)" [disabled]="disabled">
+        </ng-multiselect-dropdown>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div>
+            DATE RANGE
+            <form [formGroup]="formdata" (ngSubmit)="onClickSubmit(formdata.value)">
+                From:
+                <input type="text" class="fortextbox" name="from" placeholder="From Date" formControlName="from">
+                <br /> To:
+                <input type="text" class="fortextbox" name="to" placeholder="To Date" formControlName="to">
+                <br />
 
-      </form>
-    </div>
+            </form>
+        </div>
 
-    <br>
-    <br>
-    <br>
-
-    SELECT DIMENSIONS
-    <ng-multiselect-dropdown [placeholder]="'Dimensions(s)'" [data]="activeCustomers"
-      [(ngModel)]="selectedItemsForDimensions" [settings]="dropdownSettingss" (onDeSelect)="onItemDeSelect($event)"
-      (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-    </ng-multiselect-dropdown>
-    <!-- <div #activeList="cdkDropList" class="box-list" cdkDropList cdkDropListOrientation="vertical"
+        <br>
+        <br>
+        <br> SELECT DIMENSIONS
+        <ng-multiselect-dropdown [placeholder]="'Dimensions(s)'" [data]="activeCustomers"
+            [(ngModel)]="selectedItemsForDimensions" [settings]="dropdownSettingss"
+            (onDeSelect)="onItemDeSelect($event)" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+        </ng-multiselect-dropdown>
+        <!-- <div #activeList="cdkDropList" class="box-list" cdkDropList cdkDropListOrientation="vertical"
       [cdkDropListData]="activeCustomers" [cdkDropListConnectedTo]="[inactiveList]" (cdkDropListDropped)="drop($event)"
       (dragstart)="showPre=false">
       <div class="drag-box" *ngFor="let customer of activeCustomers" (cdkDragMoved)="showPre=false" cdkDrag>
@@ -47,47 +47,49 @@
       </div>
     </div> -->
 
-    <br>
-    <br>
-    <br>
+        <br>
+        <br>
+        <br> SELECT MEASURE
+        <ng-multiselect-dropdown [placeholder]="'Measure(s)'" [data]="dropdownList" [(ngModel)]="selectedItems"
+            [settings]="dropdownSettings" (onDeSelect)="onItemDeSelect($event)" (onSelect)="onItemSelect($event)"
+            (onSelectAll)="onSelectAll($event)">
+        </ng-multiselect-dropdown>
 
-    SELECT MEASURE
-    <ng-multiselect-dropdown [placeholder]="'Measure(s)'" [data]="dropdownList" [(ngModel)]="selectedItems"
-      [settings]="dropdownSettings" (onDeSelect)="onItemDeSelect($event)" (onSelect)="onItemSelect($event)"
-      (onSelectAll)="onSelectAll($event)">
-    </ng-multiselect-dropdown>
+        <br>
+        <br>
+        <br>
+        <button (click)="ok()">OK</button>
+        <!-- <div *ngIf="showPre">{{pre}}</div> -->
 
-    <br>
-    <br>
-    <br>
-    <button (click)="ok()">OK</button>
-    <!-- <div *ngIf="showPre">{{pre}}</div> -->
+        <div *ngIf="showPre">{{selectedItems | json}}</div>
+    </section>
 
-    <div *ngIf="showPre">{{selectedItems | json}}</div>
-  </section>
+    <section class="fright">
 
-  <section class="fright">
+        <div style="overflow-x:auto;">
+            <div id="table-wrapper">
+                <div id="table-scroll">
+                    <table *ngIf="data">
+                        <tbody>
+                            <tr>
+                                <ng-container *ngFor='let x of data.available_dimensions'>
+                                    <ng-container *ngFor='let y of data.dimensions'>
+                                        <ng-container *ngIf='x.val==y'>
+                                            <th>
+                                                <h4>{{x.text}}</h4>
+                                            </th>
+                                        </ng-container>
+                                    </ng-container>
+                                </ng-container>
 
-    <div style="overflow-x:auto;">
-      <div id="table-wrapper">
-        <div id="table-scroll">
-          <table *ngIf="data">
-            <tbody>
-              <tr>
-                <ng-container *ngFor='let x of data.dimensions'>
-                  <th>
-                    <h4>{{x}}</h4>
-                  </th>
-                </ng-container>
+                                <ng-container *ngFor='let key of objectKeys(data.result[0][data.measures[0]])'>
+                                    <th>
+                                        <h4>{{key}}</h4>
+                                    </th>
+                                </ng-container>
 
-                <ng-container *ngFor='let key of objectKeys(data.result[0][data.measures[0]])'>
-                  <th>
-                    <h4>{{key}}</h4>
-                  </th>
-                </ng-container>
-
-              </tr>
-              <!-- 
+                            </tr>
+                            <!-- 
         <tr>
           <td>
 
@@ -102,27 +104,42 @@
           </ng-container>
         </tr> -->
 
-              <tr *ngFor='let x of data.result'>
+                            <tr *ngFor='let x of data.result'>
 
-                <ng-container *ngFor='let y of data.dimensions'>
-                  <td>
-                    {{x[y]}}
-                  </td>
-                </ng-container>
+                                <ng-container *ngFor='let y of data.dimensions'>
+                                    <td>
+                                        {{x[y]}}
+                                    </td>
+                                </ng-container>
 
-                <ng-container *ngFor='let key of objectKeys(x[data.measures[0]])'>
-                  <td>
-                    {{x[data.measures[0]][key]}}
-                  </td>
-                </ng-container>
-              </tr>
+                                <ng-container *ngFor='let key of objectKeys(x[data.measures[0]])'>
+                                    <td>
+                                        {{x[data.measures[0]][key]}}
+                                    </td>
+                                </ng-container>
+                            </tr>
 
-            </tbody>
-          </table>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-  </section>
+    </section>
 
 </div>
+
+
+
+
+<!-- Round:<input [(ngModel)]="x"> I:
+<input [(ngModel)]="y"> N:
+<input [(ngModel)]="n"> Q:
+<input [(ngModel)]="q">
+<button (click)="find()">find</button>
+<div>{{op|json}}</div>
+<div>{{res}}</div> -->
+
+
+<!-- <mat-spinner style="margin:0 auto;" 
+mode="indeterminate"></mat-spinner> -->
