@@ -1,7 +1,8 @@
-<mat-progress-bar *ngIf="showBar" class="progress-bar" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
+<mat-progress-bar *ngIf="showBar" class="progress-bar" [color]="color" [mode]="mode" [value]="value"
+    [bufferValue]="bufferValue">
 </mat-progress-bar>
 
-<div class="wrap">
+<div >
     <section class="fleft">
 
         SELECT INTERVAL
@@ -9,23 +10,23 @@
             (onSelect)="onItemSelect1($event)" [disabled]="disabled">
         </ng-multiselect-dropdown>
         <br>
-        <br>
-        <br>
-        <br>
+
         <div>
             DATE RANGE
             <form [formGroup]="formdata" (ngSubmit)="onClickSubmit(formdata.value)">
-                From:
-                <input type="text" class="fortextbox" name="from" placeholder="From Date" formControlName="from">
-                <br /> To:
-                <input type="text" class="fortextbox" name="to" placeholder="To Date" formControlName="to">
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="From Date" formControlName="from">
+                </mat-form-field>
+                <!-- <input  type="text" class="fortextbox" name="from" placeholder="From Date" > -->
+                <br />
+                <mat-form-field class="example-full-width">
+                    <input type="text" matInput class="fortextbox" name="to" placeholder="To Date" formControlName="to">
+                </mat-form-field>
                 <br />
 
             </form>
         </div>
 
-        <br>
-        <br>
         <br> SELECT DIMENSIONS
         <ng-multiselect-dropdown [placeholder]="'Dimensions(s)'" [data]="activeCustomers"
             [(ngModel)]="selectedItemsForDimensions" [settings]="dropdownSettingss"
@@ -47,8 +48,7 @@
       </div>
     </div> -->
 
-        <br>
-        <br>
+
         <br> SELECT MEASURE
         <ng-multiselect-dropdown [placeholder]="'Measure(s)'" [data]="dropdownList" [(ngModel)]="selectedItems"
             [settings]="dropdownSettings" (onDeSelect)="onItemDeSelect($event)" (onSelect)="onItemSelect($event)"
@@ -56,9 +56,9 @@
         </ng-multiselect-dropdown>
 
         <br>
-        <br>
-        <br>
-        <button (click)="ok()">OK</button>
+
+        <!-- <button (click)="ok()">OK</button> -->
+        <button mat-button (click)="ok()" [color]="color">OK</button>
         <!-- <div *ngIf="showPre">{{pre}}</div> -->
 
         <div *ngIf="showPre">{{selectedItems | json}}</div>
